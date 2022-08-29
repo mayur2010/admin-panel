@@ -14,10 +14,10 @@
 	}
 	else
 	{
-		DEFINE ('DB_USER', 'root');
-		DEFINE ('DB_PASSWORD', 'root');
+		DEFINE ('DB_USER', 'nmgjqestdz');
+		DEFINE ('DB_PASSWORD', 'sKS3TNVGfe');
 		DEFINE ('DB_HOST', 'localhost'); //host name depends on server
-		DEFINE ('DB_NAME', 'localapi');
+		DEFINE ('DB_NAME', 'nmgjqestdz');
 	}
 	
 	$mysqli =mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
