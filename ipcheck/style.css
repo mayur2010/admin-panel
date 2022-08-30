@@ -1,0 +1,318 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+ol,ul {list-style:none;}
+caption,th {text-align:left;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+q:before,q:after{content:'';}
+
+/* TYPOGRAPHY */
+	body {
+		text-align: left;
+		font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+		font-size: 76%;
+        line-height: 1em;
+		color: #333;
+	}
+	div {
+		font-size: 1em;
+	}
+	img {
+		border: 0;
+	}
+	
+/* LINKS */
+	a,
+	a:link 
+	a:active {
+		color: blue;
+		background-color: white;
+		text-decoration: underline;
+	}
+	a:hover {
+		text-decoration: none;
+	}
+/* END LINKS */
+	
+/* HEADINGS */
+	h1 {
+		font-size: 1.8em;
+		line-height: 1.5em;
+		margin: 0 0 0.5em 0;
+		padding: 0;
+        color: black;
+	}
+	h2 {
+		font-size: 1.5em;
+        line-height: 1.5em;
+		margin: 0 0 0.5em 0;
+		padding: 0;
+        color: black;
+	}
+	h3 {
+		font-size: 1.3em;
+		line-height: 1.3em;
+		margin: 0 0 0.5em 0;
+		padding:0;
+        color: black;
+	}
+	h4 {
+		font-size: 1.2em;
+		line-height: 1.3em;
+		margin: 0 0 0.25em 0;
+		padding: 0;
+        color: black;
+	}
+	h5 {
+		font-size: 1.1em;
+		line-height: 1.3em;
+		margin: 0 0 0.25em 0;
+		padding: 0;
+        color: black;
+	}
+	h6 {
+		font-size: 1em;
+		line-height: 1.3em;
+		margin: 0 0 0.25em 0;
+		padding: 0;
+        color: black;
+	}
+/* END HEADINGS */
+
+/* TEXT */
+	p {
+		font-size: 1em;
+		margin: 0 0 1.5em 0;
+		padding: 0;
+		line-height:1.4em;
+	}
+	blockquote {
+		border-left:10px solid #ddd;
+		margin-left:10px;
+	}
+	pre {
+		font-family: monospace;
+		font-size: 1.0em;
+	}
+	strong, b {
+		font-weight: bold;
+	}
+	em, i {
+		font-style:italic;
+	}
+    code {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 1em;
+        white-space: pre;
+    }
+/* END TEXT */
+	
+/* LISTS */
+	ul {
+        line-height:1.4em;
+		margin: 0 0 1.5em 0;
+		padding: 0;
+	}
+	ul li {
+		margin: 0 0 0.25em 30px;
+		padding: 0;
+	}
+	ol {
+		font-size: 1.0em;
+		line-height: 1.4em;
+		margin: 0 0 1.5em 0;
+		padding: 0;
+	}
+	ol li {
+		font-size: 1.0em;
+		margin: 0 0 0.25em 30px;
+		padding: 0;
+	}
+	dl {
+		margin: 0 0 1.5em 0;
+		padding: 0;
+		line-height: 1.4em;
+	}
+	dl dt {
+		font-weight: bold;
+		margin: 0.25em 0 0.25em 0;
+		padding: 0;
+	}
+	dl dd {
+		margin: 0 0 0 30px;
+		padding: 0;
+	}
+/* END LISTS */
+	
+	
+/* TABLE */
+	table {
+        font-size: 1em;
+		margin: 0 0 1.5em 0;
+        padding: 0;
+	}
+	table caption {
+		font-weight: bold;
+		margin: 0 0 0 0;
+		padding: 0 0 1.5em 0;
+	}
+	th {
+		font-weight: bold;
+		text-align: left;
+	}
+	td {
+		font-size: 1em;
+	}
+/* END TABLE */	
+	
+	hr {
+		display: none;
+	}
+	div.hr {
+		height: 1px;
+		margin: 1.5em 10px;
+		border-bottom: 1px dotted black;
+	}
+	
+/* END TYPOGRAPHY */	
+
+/* Main Body
+----------------------------------------------- */
+
+div#bd {
+	width: 760px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+a, a:link, a:visited, a:active, a:hover {
+    color: black;
+}
+
+div#yourip {
+	text-align: left;
+}
+
+div#bd h1 {
+	text-align: center;
+	font-size: 40px;
+	margin-top: 30px;
+	margin-bottom: 0px;
+	color: #99cc52;
+}
+
+div#bd h2 {
+	text-align: center;
+	padding-top: 0px;
+	margin-top: 0px;
+	margin-bottom: 40px;
+	color: #AAAAAA;
+}
+
+
+em {
+	background-color: #ffc;
+}
+
+/* Register or Login
+----------------------------------------------- */
+
+div.highlightBar {
+	text-align: center;
+	padding: 10px;
+	background-color: #e1ebf2;
+	border-top: 1px solid #575757;
+	border-bottom: 1px solid #575757;
+	margin-bottom: 35px;
+}
+
+div.highlightBar em,  div.highlightBar em a {
+	background-color: yellow; 
+	padding: 2px;
+}
+
+div.highlightBar p.banner a:link, div.highlightBar p.banner a:visited {
+	font-size: 20px;
+	background-color: #e1ebf2;
+	margin-bottom: 5px;
+	padding: 0;
+	font-weight: bold;
+	color: #ff6600;
+}
+
+
+/* Branding and Navigation ----------------------------------------------- */
+
+div#hd {
+	border-top: 3px solid #99cc52;
+	border-bottom: 14px solid #99cc52;
+	background: url(/images/bg.jpg) repeat-x; height:40px;
+}
+
+div#branding {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	width: 760px;
+}
+
+
+div#branding a:hover {
+	color:#2B76AF;
+}
+
+div#branding span#logo {
+	margin-top: 10px;
+	margin-left: 5px;
+	float: left;
+	color: white;
+	font-weight: bold;
+	font-size: 30px;
+	height: 30px;
+}
+/* Body Text and Screenshots
+----------------------------------------------- */
+
+ul#feature-list li {
+	color: #888;
+	margin-left: 0px;
+	padding-left: 20px;
+}
+
+ul#feature-list li:before {
+	content: "\00BB \0020";
+
+}
+
+div.description {
+	width: 380px;
+	float: right;
+}
+div.description div.indent {
+	padding-left: 50px;
+}
+
+div.screenshot {
+	width: 380px;
+	height: 315px;
+	float: left;
+	margin-bottom: 40px;
+
+}
+
+
+
+/* Footer
+----------------------------------------------- */
+
+div#ft {
+	border-top:2px solid #99cc52;
+	text-align: center;
+	clear: both;
+}
+div#ft p {
+	margin: 0;
+	font-size: smaller;
+}
