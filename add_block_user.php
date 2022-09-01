@@ -10,7 +10,8 @@
     $package_qry="SELECT * FROM tbl_apps WHERE status = 1 ORDER BY id";
     $package_result=mysqli_query($mysqli,$package_qry);
 
-    $device_qry="SELECT * FROM tbl_users WHERE status = 1 ORDER BY id";
+    // $device_qry="SELECT DISTINCT device_id FROM tbl_users WHERE status = 1 ORDER BY id";
+    $device_qry="SELECT DISTINCT device_id FROM tbl_users"; // WHERE status = 1 ORDER BY id
     $device_result=mysqli_query($mysqli,$device_qry);
 
     if(isset($_POST['submit']) and isset($_GET['add']))

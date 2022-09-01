@@ -12,14 +12,16 @@
 
 	$keyword='';
 
-	if(!isset($_GET['keyword'])){
+	if(!isset($_GET['keyword']))
+	{
 		$query = "SELECT COUNT(*) as num FROM $tableName";
 	}
-	else{
+	else
+	{
 
 		$keyword=addslashes(trim($_GET['keyword']));
 
-		$query = "SELECT COUNT(*) as num FROM $tableName WHERE (`timezone` LIKE '%$keyword%' OR `country` LIKE '%$keyword%' OR `region_name` LIKE '%$keyword%')";
+		$query = "SELECT COUNT(*) as num FROM $tableName WHERE (`device_id` LIKE '%$keyword%' OR `country` LIKE '%$keyword%' OR `country_code` LIKE '%$keyword%' OR `city` LIKE '%$keyword%' OR `zip` LIKE '%$keyword%' OR `lat` LIKE '%$keyword%' OR `lon` LIKE '%$keyword%' OR `timezone` LIKE '%$keyword%' OR `isp` LIKE '%$keyword%' OR `org` LIKE '%$keyword%' OR `as_` LIKE '%$keyword%' OR `query` LIKE '%$keyword%' OR `package` LIKE '%$keyword%' OR `registered_on` LIKE '%$keyword%')";
 
 		$targetpage = "manage_users.php?keyword=".$_GET['keyword'];
 
@@ -39,16 +41,55 @@
 		$start = 0; 
 	} 
 
-	if(!isset($_GET['keyword'])){
-		$sql_query="SELECT * FROM tbl_users ORDER BY tbl_users.`id` DESC LIMIT $start, $limit"; 
-	}
-	else{
+	if(!isset($_GET['keyword']))
+	{
+		if(isset($_GET['package']))
+		{
+			$package = $_GET['package'];
+            $sql_query="SELECT * FROM tbl_users WHERE `package` = '".$package."' ORDER BY tbl_users.`id` DESC"; 
+		}
+		else if(isset($_GET['country']))
+		{
+			$country = $_GET['country'];
+            $sql_query="SELECT * FROM tbl_users WHERE `country` = '".$country."' ORDER BY tbl_users.`id` DESC"; 
+		}
+		else if(isset($_GET['state']))
+		{
+			$state = $_GET['state'];
+            $sql_query="SELECT * FROM tbl_users WHERE `region_name` = '".$state."' ORDER BY tbl_users.`id` DESC"; 
+		}
+		else if(isset($_GET['city']))
+		{
+			$city = $_GET['city'];
+      $sql_query="SELECT * FROM tbl_users WHERE `city` = '".$city."' ORDER BY tbl_users.`id` DESC"; 
+		}
+		else if(isset($_GET['datepicker']))
+		{
+			$datepicker = $_GET['datepicker'];
 
-		$sql_query="SELECT * FROM tbl_users WHERE (`timezone` LIKE '%$keyword%' OR `country` LIKE '%$keyword%' OR `region_name` LIKE '%$keyword%') ORDER BY tbl_users.`id` DESC LIMIT $start, $limit"; 
+			// $date = 'July 25 2010';
+			$datepicker = date('Y-m-d', strtotime($datepicker));
+
+      $sql_query="SELECT * FROM tbl_users WHERE `register_date` = '".$datepicker."' ORDER BY tbl_users.`id` DESC"; 
+
+      // $sql_query="SELECT * FROM tbl_users ORDER BY tbl_users.`id` DESC LIMIT $start, $limit"; 
+		}
+		else
+		{
+			$sql_query="SELECT * FROM tbl_users ORDER BY tbl_users.`id` DESC LIMIT $start, $limit"; 
+		}
+		
+	}
+	else
+	{
+
+		$sql_query="SELECT * FROM tbl_users WHERE (`device_id` LIKE '%$keyword%' OR `country` LIKE '%$keyword%' OR `country_code` LIKE '%$keyword%' OR `city` LIKE '%$keyword%' OR `zip` LIKE '%$keyword%' OR `lat` LIKE '%$keyword%' OR `lon` LIKE '%$keyword%' OR `timezone` LIKE '%$keyword%' OR `isp` LIKE '%$keyword%' OR `org` LIKE '%$keyword%' OR `as_` LIKE '%$keyword%' OR `query` LIKE '%$keyword%' OR `package` LIKE '%$keyword%' OR `registered_on` LIKE '%$keyword%') ORDER BY tbl_users.`id` DESC LIMIT $start, $limit"; 
 	}
 
 	$result=mysqli_query($mysqli,$sql_query) or die(mysqli_error($mysqli));
 ?>
+    <link rel="stylesheet" href="./vendor/pickadate/themes/default.css">
+    <link rel="stylesheet" href="./vendor/pickadate/themes/default.date.css">
 
     <div class="content-body">
         <div class="container-fluid">
@@ -72,6 +113,100 @@
                 </div>
             </div>
             <hr>
+
+            <form class="row" id="filterForm" accept="" method="GET">
+			          <div class="col-md-3 col-xs-12">
+			            <select name="package" class="form-control filter package" data-type="package" style="padding: 5px 10px;height: 40px;">
+			              <option value="">All Package</option>
+			              <?php
+			              $sql_package = "SELECT * FROM tbl_apps ORDER BY id";     
+			              $res_package = mysqli_query($mysqli, $sql_package);
+			              while ($row_package = mysqli_fetch_array($res_package)) {
+			              ?>
+			                <option value="<?php echo $row_package['package_name']; ?>" <?php if (isset($_GET['package']) && $_GET['package'] == $row_package['package_name']) { echo 'selected'; } ?>><?php echo $row_package['package_name']; ?></option>
+			              <?php
+			              }
+			              ?>
+			            </select>
+			          </div>
+			          <div class="col-md-3 col-xs-12">
+			            <select name="country" class="form-control filter country" data-type="country" style="padding: 5px 10px;height: 40px;">
+			              <option value="">All Country</option>
+			              <?php
+			              // $sql_country = "SELECT * FROM tbl_country ORDER BY id"; 
+			              $sql_country = "SELECT DISTINCT country FROM tbl_users ORDER BY tbl_users.`country` DESC";    
+			              $res_country = mysqli_query($mysqli, $sql_country);
+			              while ($row_country = mysqli_fetch_array($res_country)) {
+			              ?>
+			                <option value="<?php echo $row_country['country']; ?>" <?php if (isset($_GET['country']) && $_GET['country'] == $row_country['country']) { echo 'selected'; } ?>><?php echo $row_country['country']; ?></option>
+			              <?php
+			              }
+			              ?>
+			            </select>
+			          </div>
+			          <div class="col-md-3 col-xs-12">
+			            <select name="state" class="form-control filter state" data-type="state" style="padding: 5px 10px;height: 40px;">
+			              <option value="">All State</option>
+			              <?php
+			              if(isset($_GET['country']))
+			              {
+			              	$country = $_GET['country'];
+
+			                $sql_state = "SELECT DISTINCT region_name FROM tbl_users  WHERE country = '".$country."' ORDER BY tbl_users.`region_name` DESC"; 
+			              } 
+			              else
+			              {
+			                $sql_state = "SELECT DISTINCT region_name FROM tbl_users ORDER BY tbl_users.`region_name` DESC"; 
+			              } 
+			              $res_state = mysqli_query($mysqli, $sql_state);
+			              while ($row_state = mysqli_fetch_array($res_state)) {
+			              ?>
+			                <option value="<?php echo $row_state['region_name']; ?>" <?php if (isset($_GET['state']) && $_GET['state'] == $row_state['region_name']) { echo 'selected'; } ?>><?php echo $row_state['region_name']; ?></option>
+			              <?php
+			              }
+			              ?>
+			            </select>
+			          </div>
+			          <div class="col-md-3 col-xs-12">
+			            <select name="city" class="form-control filter city" data-type="city" style="padding: 5px 10px;height: 40px;">
+			              <option value="">All City</option>
+			              <?php
+			              if(isset($_GET['state']))
+			              {
+			              	$state = $_GET['state'];
+			                $sql_city = "SELECT DISTINCT city FROM tbl_users  WHERE region_name = '".$state."' ORDER BY tbl_users.`city` DESC"; 
+			              } 
+			              else
+			              {
+			                $sql_city = "SELECT DISTINCT city FROM tbl_users ORDER BY tbl_users.`city` DESC"; 
+			              } 
+			              $res_city = mysqli_query($mysqli, $sql_city);
+			              while ($row_city = mysqli_fetch_array($res_city)) {
+			              ?>
+			                <option value="<?php echo $row_city['city']; ?>" <?php if (isset($_GET['city']) && $_GET['city'] == $row_city['city']) { echo 'selected'; } ?>><?php echo $row_city['city']; ?></option>
+			              <?php
+			              }
+			              ?>
+			            </select>
+			          </div>
+		        </form>
+		        <hr>
+		        
+		        <form class="row" id="filterForm" accept="" method="GET">
+		        	<div class="col-md-2 col-xs-12">
+		            <input name="datepicker" class="datepicker-default form-control" 
+		                  <?php 
+		                    if(isset($_GET['datepicker']) && !empty($_GET['datepicker'])) 
+		                    	{ 
+		                  ?> value="<?php echo $_GET['datepicker']; ?>"
+		                  <?php 
+		                      } 
+		                  ?> id="datepicker" placeholder="Select Date">
+		          </div>
+		          <div class="col-md-2 col-xs-12">
+		            <button type="submit" class="btn mr-2 btn-primary">Submit</button>
+		          </div>
+		        </form>
 			<div class="col-md-12 col-xs-12 text-right" style="float: right;margin-bottom: 10px;">
                 <div>
                     <div class="col-md-4 col-xs-12 text-right" style="float: right;">
@@ -101,12 +236,15 @@
         					<thead>
         						<tr>
         							<th class="text-center">#</th>
+        							<th>Device Id</th>
         							<th>package</th>
         							<th>country</th>
-        							<th>country_code</th>
-        							<th>region_name</th>
+        							<!-- <th>country code</th> -->
+        							<th>State</th>
         							<th>city</th>
         							<th>zip</th>
+        							<th>Query</th>
+        							<th>Date</th>
         							<th>Status</th>
         							<th class="cat_action_list">Action</th>
         						</tr>
@@ -125,16 +263,19 @@
         										<label for="checkbox<?php echo $i;?>"></label>
         									</div>
         								</td>
+        								<td style="word-break: break-all;"><?php echo $users_row['device_id']; ?></td>
         								<td style="word-break: break-all;"><?php echo $users_row['package']; ?></td>
         								
                         				
         								<td style="word-break: break-all;">
         				               			<?php echo $users_row['country'];?>	
         								</td>
-        								<td style="word-break: break-all;"><?php echo $users_row['country_code']; ?></td>
+        								<!-- <td style="word-break: break-all;">< ?php echo $users_row['country_code']; ?></td> -->
         								<td style="word-break: break-all;"><?php echo $users_row['region_name']; ?></td>
         								<td style="word-break: break-all;"><?php echo $users_row['city']; ?></td>
         								<td style="word-break: break-all;"><?php echo $users_row['zip']; ?></td>
+        								<td style="word-break: break-all;"><?php echo $users_row['query']; ?></td>
+        								<td style="word-break: break-all;"><?php echo $users_row['register_date'];?></td>
         								<td>
         									<?php if ($users_row['status'] != "0") { ?>
         										<a title="Change Status" class="toggle_btn_a" href="javascript:void(0)" data-id="<?= $users_row['id'] ?>" data-action="deactive" data-column="status"><span class="badge badge-success badge-icon"><i class="fa fa-check" aria-hidden="true"></i><span>Enable</span></span></a>
@@ -158,7 +299,7 @@
         							else{
         								?>
         								<tr>
-        									<td colspan="7">
+        									<td colspan="11">
         										<p class="not_data"><strong>Sorry</strong> no data found!</p>
         									</td>
         								</tr>
@@ -173,7 +314,16 @@
 			<div class="col-md-12 col-xs-12">
 				<div class="pagination_item_block">
 					<nav>
-						<?php include("pagination.php")?>
+						<?php 
+						    if(isset($_GET['package']) || isset($_GET['country']) || isset($_GET['state']) || isset($_GET['city']) || isset($_GET['datepicker']))
+						    {
+						     //include("pagination.php");
+						    }
+						    else
+						    {
+                  include("pagination.php");
+						    }
+						?>
 					</nav>
 				</div>
 			</div>
@@ -185,6 +335,60 @@
 
 
 <?php include('includes/footer.php'); ?>
+
+<script>
+$("select[name='package']").on("change",function(e){
+    if($(this).val()!='')
+    {
+      window.location.href="manage_users.php?package="+$(this).val();
+    }else{
+      window.location.href="manage_users.php";
+    }
+  });
+</script>
+
+<script>
+$("select[name='country']").on("change",function(e){
+    if($(this).val()!='')
+    {
+      window.location.href="manage_users.php?country="+$(this).val();
+    }
+    else
+    {
+      window.location.href="manage_users.php";
+    }
+  });
+</script>
+
+<script>
+$("select[name='state']").on("change",function(e){
+    if($(this).val()!='')
+    {
+      window.location.href="manage_users.php?state="+$(this).val();
+    }else{
+      window.location.href="manage_users.php";
+    }
+  });
+</script>
+
+<script>
+$("select[name='city']").on("change",function(e){
+    if($(this).val()!='')
+    {
+      window.location.href="manage_users.php?city="+$(this).val();
+    }
+    else
+    {
+      window.location.href="manage_users.php";
+    }
+  });
+</script>
+ <!-- pickdate -->
+    <script src="./vendor/pickadate/picker.js"></script>
+    <script src="./vendor/pickadate/picker.time.js"></script>
+    <script src="./vendor/pickadate/picker.date.js"></script>
+    <!-- Pickdate -->
+    <script src="./js/plugins-init/pickadate-init.js"></script>
 
 <script type="text/javascript">
 	$(".toggle_btn_a").on("click", function(e) {

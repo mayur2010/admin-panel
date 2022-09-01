@@ -101,6 +101,7 @@
             'query'  =>  $query,
             'package'  =>  $package,
             'registered_on'  =>  strtotime(date('d-m-Y h:i:s A')),
+            'register_date'  =>  date('Y-m-d'),
         );
 
             $qry_user_count = "SELECT COUNT(*) as num FROM tbl_users WHERE device_id = '$device_id' AND package = '$package'";
@@ -431,6 +432,7 @@
             }
             else
             {
+            	$row3['ads_1_status'] = $ads_1_status;
             	$row3['ads_type_1'] = $ads_type_1;
 				$row3['banner_1'] = $banner_1;
 				$row3['inter_id_1'] = $inter_id_1;
@@ -439,6 +441,8 @@
 				$row3['open_ads_1'] = $open_ads_1;
 				$row3['back_inter_1'] = $back_inter_1;
 
+
+				$row3['ads_2_status'] = $ads_2_status;
 				$row3['ads_type_2'] = $ads_type_2;
 				$row3['banner_2'] = $banner_2;
 				$row3['inter_id_2'] = $inter_id_2;
@@ -447,6 +451,7 @@
 				$row3['open_ads_2'] = $open_ads_2;
 				$row3['back_inter_2'] = $back_inter_2;
 	            
+	            $row3['ads_3_status'] = $ads_3_status;
 				$row3['ads_type_3'] = $ads_type_3;
 				$row3['banner_3'] = $banner_3;
 				$row3['inter_id_3'] = $inter_id_3;
@@ -473,8 +478,19 @@
 
 			// $row3['start_time'] = $data3['start_time'];
 			$start_time = $data3['start_time'];
+
+			$start_time_2 = $data3['start_time_2'];
+			$start_time_3 = $data3['start_time_3'];
+			$start_time_4 = $data3['start_time_4'];
+			$start_time_5 = $data3['start_time_5'];
 			// $row3['end_time'] = $data3['end_time'];
 			$end_time = $data3['end_time'];
+
+			$end_time_2 = $data3['end_time_2'];
+			$end_time_3 = $data3['end_time_3'];
+			$end_time_4 = $data3['end_time_4'];
+			$end_time_5 = $data3['end_time_5'];
+
 
 			date_default_timezone_set('Asia/Kolkata');
             // $row3['current_time'] = date('H:i');
@@ -489,6 +505,8 @@
 			$result = array_intersect($user_array,$location_arr);
 
 			$final_count = count($result);
+
+			$row3['open_ads_status'] = $data3['open_ads_status'];
 
 			$vpn_status = $data3['vpn_status'];
 
@@ -506,7 +524,23 @@
 						{
 							if($time_status == 'true')
 							{
-								if ($current_time > $start_time && $current_time < $end_time)
+								if ($current_time == $start_time && $current_time < $end_time)
+								{
+								   $vpn_status = 'true';
+								}
+								elseif ($current_time == $start_time_2 && $current_time < $end_time_2)
+								{
+								   $vpn_status = 'true';
+								}
+								elseif ($current_time == $start_time_3 && $current_time < $end_time_3)
+								{
+								   $vpn_status = 'true';
+								}
+								elseif ($current_time == $start_time_4 && $current_time < $end_time_4)
+								{
+								   $vpn_status = 'true';
+								}
+								elseif ($current_time == $start_time_5 && $current_time < $end_time_5)
 								{
 								   $vpn_status = 'true';
 								}
@@ -518,8 +552,7 @@
 							else
 							{
 								$vpn_status = 'true';
-							}
-		                   
+							}  
 						}
 						else
 						{

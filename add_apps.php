@@ -57,6 +57,7 @@
             'full_native_3' => html_entity_decode($_POST['full_native_3'], ENT_QUOTES, "UTF-8"),
             'open_ads_3' => html_entity_decode($_POST['open_ads_3'], ENT_QUOTES, "UTF-8"),
             'back_inter_3' => html_entity_decode($_POST['back_inter_3'], ENT_QUOTES, "UTF-8"),
+            'open_ads_status' => html_entity_decode($_POST['open_ads_status'], ENT_QUOTES, "UTF-8"),
             'vpn_status' => html_entity_decode($_POST['vpn_status'], ENT_QUOTES, "UTF-8"),
             'vpn_country' => html_entity_decode(implode(',', $_POST['country_id']), ENT_QUOTES, "UTF-8"),
             'vpn_country_key' => html_entity_decode($_POST['vpn_key_id'], ENT_QUOTES, "UTF-8"),
@@ -65,6 +66,14 @@
             'time_status' => html_entity_decode($_POST['time_status'], ENT_QUOTES, "UTF-8"),
             'start_time' => html_entity_decode($_POST['start_time'], ENT_QUOTES, "UTF-8"),
             'end_time' => html_entity_decode($_POST['end_time'], ENT_QUOTES, "UTF-8"),
+            'start_time_2' => html_entity_decode($_POST['start_time_2'], ENT_QUOTES, "UTF-8"),
+            'end_time_2' => html_entity_decode($_POST['end_time_2'], ENT_QUOTES, "UTF-8"),
+            'start_time_3' => html_entity_decode($_POST['start_time_3'], ENT_QUOTES, "UTF-8"),
+            'end_time_3' => html_entity_decode($_POST['end_time_3'], ENT_QUOTES, "UTF-8"),
+            'start_time_4' => html_entity_decode($_POST['start_time_4'], ENT_QUOTES, "UTF-8"),
+            'end_time_4' => html_entity_decode($_POST['end_time_4'], ENT_QUOTES, "UTF-8"),
+            'start_time_5' => html_entity_decode($_POST['start_time_5'], ENT_QUOTES, "UTF-8"),
+            'end_time_5' => html_entity_decode($_POST['end_time_5'], ENT_QUOTES, "UTF-8"),
         );    
 
         $qry = Insert('tbl_apps',$data);  
@@ -123,6 +132,7 @@
             'full_native_3' => html_entity_decode($_POST['full_native_3'], ENT_QUOTES, "UTF-8"),
             'open_ads_3' => html_entity_decode($_POST['open_ads_3'], ENT_QUOTES, "UTF-8"),
             'back_inter_3' => html_entity_decode($_POST['back_inter_3'], ENT_QUOTES, "UTF-8"),
+            'open_ads_status' => html_entity_decode($_POST['open_ads_status'], ENT_QUOTES, "UTF-8"),
             'vpn_status' => html_entity_decode($_POST['vpn_status'], ENT_QUOTES, "UTF-8"),
             'vpn_country' => html_entity_decode(implode(',', $_POST['country_id']), ENT_QUOTES, "UTF-8"),
             //implode(',', $_POST['wallpaper_color']) //$_POST['country_id']
@@ -132,6 +142,14 @@
             'time_status' => html_entity_decode($_POST['time_status'], ENT_QUOTES, "UTF-8"),
             'start_time' => html_entity_decode($_POST['start_time'], ENT_QUOTES, "UTF-8"),
             'end_time' => html_entity_decode($_POST['end_time'], ENT_QUOTES, "UTF-8"),
+            'start_time_2' => html_entity_decode($_POST['start_time_2'], ENT_QUOTES, "UTF-8"),
+            'end_time_2' => html_entity_decode($_POST['end_time_2'], ENT_QUOTES, "UTF-8"),
+            'start_time_3' => html_entity_decode($_POST['start_time_3'], ENT_QUOTES, "UTF-8"),
+            'end_time_3' => html_entity_decode($_POST['end_time_3'], ENT_QUOTES, "UTF-8"),
+            'start_time_4' => html_entity_decode($_POST['start_time_4'], ENT_QUOTES, "UTF-8"),
+            'end_time_4' => html_entity_decode($_POST['end_time_4'], ENT_QUOTES, "UTF-8"),
+            'start_time_5' => html_entity_decode($_POST['start_time_5'], ENT_QUOTES, "UTF-8"),
+            'end_time_5' => html_entity_decode($_POST['end_time_5'], ENT_QUOTES, "UTF-8"),
         );
 
         $category_edit=Update('tbl_apps', $data, "WHERE id = '".$_POST['apps_id']."'");
@@ -197,7 +215,7 @@
         .label {
             border-radius: 12px;
             padding: 5px 12px;
-            text-transform: uppercase;
+            text-transform: full-size-kana;
             font-size: 10px;
         }
 
@@ -593,6 +611,16 @@
                                     </div>
 
                                     <div class="form-group row">                                        
+                                        <label class="col-md-3 col-form-label">Open Ads Status :-</label>
+                                        <div class="col-md-9">
+                                            <select name="open_ads_status"  class="select2" id="single-select">
+                                                <option value="true" <?php if ($row['open_ads_status'] == 'true') { ?>selected<?php } ?>>ON</option>
+                                                <option value="false" <?php if ($row['open_ads_status'] == 'false') { ?>selected<?php } ?>>OFF</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">                                        
                                         <label class="col-md-3 col-form-label">Vpn Status :-</label>
                                         <div class="col-md-9">
                                             <select name="vpn_status"  class="select2" id="single-select">
@@ -666,17 +694,83 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group" style="display : flex;">
-                                        <label class="col-md-3 control-label">Start Time :-</label>
-                                        <div class="col-md-9">
-                                            <input type="time" name="start_time" id="start_time" value="<?php if(isset($_GET['apps_id'])){echo $row['start_time'];}?>" class="form-control" >
+                                    <div style=" border: 1px solid #00000052; margin-bottom: 20px; padding: 25px !important; ">
+                                        <div class="form-group" style="display : flex;">
+                                            <label class="col-md-3 control-label">Start Time :-</label>
+                                            <div class="col-md-9">
+                                                <input type="time" name="start_time" id="start_time" value="<?php if(isset($_GET['apps_id'])){echo $row['start_time'];}?>" class="form-control" >
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="display : flex;">
+                                            <label class="col-md-3 control-label">End Time :-</label>
+                                            <div class="col-md-9">
+                                                <input type="time" name="end_time" id="end_time" value="<?php if(isset($_GET['apps_id'])){echo $row['end_time'];}?>" class="form-control" >
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="form-group" style="display : flex;">
-                                        <label class="col-md-3 control-label">End Time :-</label>
-                                        <div class="col-md-9">
-                                            <input type="time" name="end_time" id="end_time" value="<?php if(isset($_GET['apps_id'])){echo $row['end_time'];}?>" class="form-control" >
+                                    <div style=" border: 1px solid #00000052; margin-bottom: 20px; padding: 25px !important; ">
+                                        <div class="form-group" style="display : flex;">
+                                            <label class="col-md-3 control-label">Start Time 2 :-</label>
+                                            <div class="col-md-9">
+                                                <input type="time" name="start_time_2" id="start_time_2" value="<?php if(isset($_GET['apps_id'])){echo $row['start_time_2'];}?>" class="form-control" >
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="display : flex;">
+                                            <label class="col-md-3 control-label">End Time 2 :-</label>
+                                            <div class="col-md-9">
+                                                <input type="time" name="end_time_2" id="end_time_2" value="<?php if(isset($_GET['apps_id'])){echo $row['end_time_2'];}?>" class="form-control" >
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style=" border: 1px solid #00000052; margin-bottom: 20px; padding: 25px !important; ">
+                                        <div class="form-group" style="display : flex;">
+                                            <label class="col-md-3 control-label">Start Time 3 :-</label>
+                                            <div class="col-md-9">
+                                                <input type="time" name="start_time_3" id="start_time_3" value="<?php if(isset($_GET['apps_id'])){echo $row['start_time_3'];}?>" class="form-control" >
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="display : flex;">
+                                            <label class="col-md-3 control-label">End Time 3 :-</label>
+                                            <div class="col-md-9">
+                                                <input type="time" name="end_time_3" id="end_time_3" value="<?php if(isset($_GET['apps_id'])){echo $row['end_time_3'];}?>" class="form-control" >
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style=" border: 1px solid #00000052; margin-bottom: 20px; padding: 25px !important; ">
+                                        <div class="form-group" style="display : flex;">
+                                            <label class="col-md-3 control-label">Start Time 4 :-</label>
+                                            <div class="col-md-9">
+                                                <input type="time" name="start_time_4" id="start_time_4" value="<?php if(isset($_GET['apps_id'])){echo $row['start_time_4'];}?>" class="form-control" >
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="display : flex;">
+                                            <label class="col-md-3 control-label">End Time 4 :-</label>
+                                            <div class="col-md-9">
+                                                <input type="time" name="end_time_4" id="end_time_4" value="<?php if(isset($_GET['apps_id'])){echo $row['end_time_4'];}?>" class="form-control" >
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style=" border: 1px solid #00000052; margin-bottom: 20px; padding: 25px !important; ">
+                                        <div class="form-group" style="display : flex;">
+                                            <label class="col-md-3 control-label">Start Time 5 :-</label>
+                                            <div class="col-md-9">
+                                                <input type="time" name="start_time_5" id="start_time_5" value="<?php if(isset($_GET['apps_id'])){echo $row['start_time_5'];}?>" class="form-control" >
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="display : flex;">
+                                            <label class="col-md-3 control-label">End Time 5 :-</label>
+                                            <div class="col-md-9">
+                                                <input type="time" name="end_time_5" id="end_time_5" value="<?php if(isset($_GET['apps_id'])){echo $row['end_time_5'];}?>" class="form-control" >
+                                            </div>
                                         </div>
                                     </div>
 

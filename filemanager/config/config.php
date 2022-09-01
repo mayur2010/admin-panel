@@ -251,7 +251,7 @@ $config = array(
     |
     */
 
-    'access_keys' => array('examplesite'),
+    'access_keys' => array('vocsyinfotech'),
 
     //--------------------------------------------------------------------------------------------------------
     // YOU CAN COPY AND CHANGE THESE VARIABLES INTO FOLDERS config.php FILES TO CUSTOMIZE EACH FOLDER OPTIONS
